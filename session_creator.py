@@ -16,21 +16,32 @@ class Session_create():
         self.window = tk.Tk()
 
         # input boxes for timing
+
+        self.session_label = tk.Label(self.window, text="enter the total length of your study session:")
+        self.session_label.pack()
         self.session_time = tk.Entry(self.window)
         self.session_time.pack()
 
+        self.div_label = tk.Label(self.window, text="Enter the number of breaks you want to have:")
+        self.div_label.pack()
         self.divisions = tk.Entry(self.window)
         self.divisions.pack()
 
+        self.rat_label = tk.Label(self.window, text="Enter the ratio of study to break time you want:")
+        self.rat_label.pack()
         self.ratio = tk.Entry(self.window)
         self.ratio.pack()
 
-        self.segment_calc = tk.Label(self.window, text="Study length: 0 Break length: 0")
-        self.segment_calc.pack()
+        # self.segment_calc = tk.Label(self.window, text="Study length: 0 Break length: 0")
+        # self.segment_calc.pack()
 
+        self.study_label = tk.Label(self.window, text="Enter the link for your study music:")
+        self.study_label.pack()
         self.study_link = tk.Entry(self.window)
         self.study_link.pack()
 
+        self.break_label = tk.Label(self.window, text="Enter the link for your break music:")
+        self.break_label.pack()
         self.break_link = tk.Entry(self.window)
         self.break_link.pack()
 

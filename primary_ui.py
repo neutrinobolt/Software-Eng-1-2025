@@ -28,9 +28,6 @@ class MainView ():
         self.pause_btn = tk.Button(self.window, text="pause", command=self.pause)
         self.pause_btn.pack()
 
-        self.test_btn = tk.Button(self.window, text="Test session Button", command=self.sess_test)
-        self.test_btn.pack()
-
         self.sess_creator = tk.Button(self.window, text="Create new session", command=self.sess_create)
         self.sess_creator.pack()
 
@@ -52,43 +49,6 @@ class MainView ():
     def pause(self):
         pass
 
-    def sess_test(self):
-        """Test timer. 60-second total session split into 4 15-second segments,
-        10-second study and 5-second break."""
-        # setup variables
-        segment_length = TEST_SESS_LENGTH / TEST_DIVISIONS
-        break_length = segment_length / (TEST_RATIO + 1)
-        study_length = break_length * TEST_RATIO
-        current_segment_time = 0
-        is_break = False
-
-        # Start time
-        print("starting session...") #debug
-        for second in range(0, TEST_SESS_LENGTH + 1):
-            #update session progress
-            self.session_progress['value'] = (second / TEST_SESS_LENGTH) * 100
-            #print("updated session progress.") #debug
-
-            #If segment bar is full, reset and change to opposite segment type
-            if self.segment_progress['value'] == 100:
-                print("resetting Segment progress...") #debug
-                is_break = not is_break
-                print(f'is_break: ', {is_break})
-                current_segment_time = 0
-
-            #Update segment progress
-            if not is_break:
-                print("Updating study progress...") #debug
-                self.segment_progress['value'] = (current_segment_time / study_length) * 100
-            else: 
-                print("Updating break progress...") #debug
-                self.segment_progress['value'] = (current_segment_time / break_length) * 100
-            #print("Updated segment progress") #debug
-
-            # Increment time 
-            self.window.update_idletasks()
-            time.sleep(1.0)
-            current_segment_time += 1
 
     def sess_create(self):
         """Open session creator window, run session."""
