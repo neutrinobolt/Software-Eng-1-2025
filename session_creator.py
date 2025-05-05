@@ -28,8 +28,11 @@ class Session_create():
         self.segment_calc = tk.Label(self.window, text="Study length: 0 Break length: 0")
         self.segment_calc.pack()
 
-        self.link = tk.Entry(self.window)
-        self.link.pack()
+        self.study_link = tk.Entry(self.window)
+        self.study_link.pack()
+
+        self.break_link = tk.Entry(self.window)
+        self.break_link.pack()
 
         self.start_btn = tk.Button(self.window, text="Start", command=self.start)
         self.start_btn.pack()
@@ -49,7 +52,7 @@ class Session_create():
 
         #Check and clean time input. Only ints acceptable
         try:
-            total_time = int(self.session_time.get())
+            total_time = int(self.session_time.get()) * 60
         except ValueError:
             self.session_time.delete(0, tk.END)
             self.bad_input.pack()
@@ -80,6 +83,19 @@ class Session_create():
             outfile.write(out_string)
 
         #Add later: Push link to txt
+        with open("study_link.txt", mode = "w", encoding="utf-8") as break_file:
+            out_string = self.study_link.get()
+            if out_string == "":
+                break_file.write("none")
+            else:
+                break_file.write(out_string)
+        
+        with open("break_link.txt", mode = "w", encoding="utf-8") as break_file:
+            out_string = self.break_link.get()
+            if out_string == "":
+                break_file.write("none")
+            else:
+                break_file.write(out_string)
 
         #Close this window
         self.window.destroy()
@@ -87,4 +103,5 @@ class Session_create():
 
     def cancel(self):
         """Close creator window w/o creating anything"""
+        self.window.destroy()
         self.window.quit

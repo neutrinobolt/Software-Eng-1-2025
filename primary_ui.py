@@ -12,6 +12,7 @@ import time
 import tkinter as tk
 import tkinter.ttk as ttk
 import session_creator as sc
+import player
 
 TEST_SESS_LENGTH = 60
 TEST_DIVISIONS = 4
@@ -104,6 +105,7 @@ class MainView ():
 
             # Start time
             print("starting session...") #debug
+            player.play_yt('study_link.txt')
             for second in range(0, session_length + 1):
                 #update session progress
                 self.session_progress['value'] = (second / session_length) * 100
@@ -114,14 +116,20 @@ class MainView ():
                     print("resetting Segment progress...") #debug
                     is_break = not is_break
                     print(f'is_break: ', {is_break})
+                    # Set music
+                    if not is_break: 
+                        # set to study music
+                        player.play_yt("study_link.txt")
+                    else:
+                        player.play_yt("break_link.txt")
                     current_segment_time = 0
 
                 #Update segment progress
                 if not is_break:
-                    print("Updating study progress...") #debug
+                    # print("Updating study progress...") #debug
                     self.segment_progress['value'] = (current_segment_time / study_length) * 100
                 else: 
-                    print("Updating break progress...") #debug
+                    # print("Updating break progress...") #debug
                     self.segment_progress['value'] = (current_segment_time / break_length) * 100
                 #print("Updated segment progress") #debug
 
