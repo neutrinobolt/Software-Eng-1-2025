@@ -4,9 +4,16 @@
 
 This program will list popular vacation spots in a geographical area.
 
+### Dependencies
+
+This software uses the geoapify API to retrieve location data. the api key for the software
+is kept in a file named "geoapify_key.txt", in a single line with no whitespace.
+A free API key can be obtained at their website https://www.geoapify.com/ and
+following their instructions.
+
 ### Requesting Data
 
-Requesting data from this system can be done by writing to a "popular_sites.txt" file.
+Requesting data from this system can be done by writing to a "sites.txt" file.
 Formatting input:
 When requesting data, write "get" to the first line of the file, and the area in which
 to search to the second line [Edit note: Once you know how to format geo data for
@@ -20,3 +27,5 @@ Line will contain locale name, location, average rating, and a link to the local
 if available.
 
 ## UML Sequence Diagram
+
+![Diagram of the action sequence of the software.] /microservice.png
