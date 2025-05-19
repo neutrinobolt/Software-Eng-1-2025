@@ -28,4 +28,4 @@ if available.
 
 ## UML Sequence Diagram
 
-![Diagram of the action sequence of the software.] (/microservice.png)
+![Diagram of the action sequence of the software.] (Software-Eng-1-2025/MicroserviceTPlanner/microservice.png)
