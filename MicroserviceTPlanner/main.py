@@ -74,7 +74,7 @@ if site_lines[0] == "get":
     poi_resp = requests.get(poi_url_full, headers=headers)
     print(poi_resp.status_code)
     poi_response = poi_resp.json()
-    # pprint(poi_response) # Debug
+    pprint(poi_response) # Debug
     # for feature in poi_response["features"]: Debug
     #     print(feature["properties"]["name"])
 

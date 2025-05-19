@@ -13,18 +13,24 @@ following their instructions.
 
 ### Requesting Data
 
-Requesting data from this system can be done by writing to a "sites.txt" file.
+Requesting data from this system can be done by writing input to a "sites.txt" file,
+and running the main file.
 Formatting input:
-When requesting data, write "get" to the first line of the file, and the area in which
-to search to the second line [Edit note: Once you know how to format geo data for
-software include that]
+1st line: "get" (tells software to search for given data)
+2nd line: name of area to search in
+3rd line: limit. This should be an integer value, showing how many locations to fetch
+data for.
+4th line: category. A full list of acceptable location categories to search for can be found
+at https://apidocs.geoapify.com/docs/places/ in the long table labeled "supported Categories".
+5th line: area type. "city" or "state" are acceptable values.
 
 ### Receiving Data
 
 When the system has the data ready, the first line will read "got". Each following line
 will contain data related to each found locale in the following format:
-Line will contain locale name, location, average rating, and a link to the locale's website
-if available.
+Line will contain locale name, a link to the locale's website if available (if none will say "No website"),
+latitude and longitude coordinates, and hours if any (if none will say "no hours").
+Each piece of data will be separated by commas.
 
 ## UML Sequence Diagram
 
