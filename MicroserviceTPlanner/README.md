@@ -28,4 +28,5 @@ if available.
 
 ## UML Sequence Diagram
 
-![Diagram of the action sequence of the software.] (Software-Eng-1-2025/MicroserviceTPlanner/microservice.png)
+The Sequence Diagram for this project can be found in the file "microservice.png", in this folder.
+Note: the watermark covered up the name of one of the actors so I left a not labeling it.
