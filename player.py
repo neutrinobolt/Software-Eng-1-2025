@@ -23,7 +23,3 @@ def play_yt(link_file: str):
     if link_url is not None:
         webbrowser.open(link_url)
 
-    
-
-if __name__ == "__main__":
-    play_yt()

@@ -1,5 +1,7 @@
 #!usr/bin/env/python3
 
+import requests
+
 """UI for Session creation. Contains:
 - Input box for total session time
 - Input box for # divisions
@@ -16,6 +18,11 @@ class Session_create():
         self.window = tk.Tk()
 
         # input boxes for timing
+
+        self.sess_name_label = tk.Label(self.window, text="Enter the name of the session:")
+        self.sess_name_label.pack()
+        self.sess_name = tk.Entry(self.window)
+        self.sess_name.pack()
 
         self.session_label = tk.Label(self.window, text="enter the total length of your study session:")
         self.session_label.pack()
@@ -107,6 +114,19 @@ class Session_create():
                 break_file.write("none")
             else:
                 break_file.write(out_string)
+
+        # Post data to db
+        data_json = {
+            "name": self.sess_name.get(),
+            "full_dur": total_time,
+            "num_breaks": divisions,
+            "break_dur": break_time,
+            "long_break_dur": break_time,
+            "study_dur": study_time,
+            "study_link": self.study_link.get(),
+            "break_link": self.break_link.get()
+        }
+        requests.post("http://localhost:3000/studysessions", json= data_json, timeout= 10)
 
         #Close this window
         self.window.destroy()
