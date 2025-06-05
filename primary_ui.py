@@ -27,10 +27,6 @@ class MainView ():
 
         # Buttons
 
-
-        self.pause_btn = tk.Button(self.window, text="pause", command=self.pause)
-        self.pause_btn.pack()
-
         # Fill in premade sessions
         #Get data
         save_data = requests.get("http://localhost:3000/studysessions", timeout= 10)
@@ -60,9 +56,7 @@ class MainView ():
 
 
 
-    # Button functions
-    def pause(self):
-        pass
+    # Button function
 
     def sess_play(self, sess_length, break_length, study_length, study_link, break_link):
         # Write links to files
@@ -115,46 +109,48 @@ class MainView ():
         """Open session creator window, run session."""
         s_creator = sc.Session_create()
         s_creator.window.mainloop()
+
         with open('time_data.txt', mode='r', encoding='utf-8') as infile:
             time_data_str = infile.read()
-            time_data_tupl = time_data_str.split(',')
-            session_length = int(time_data_tupl[0])
-            break_length = int(time_data_tupl[1])
-            study_length = int(time_data_tupl[2])
-            current_segment_time = 0
-            is_break = False
 
-            # Start time
-            print("starting session...") #debug
-            player.play_yt('study_link.txt')
-            for second in range(0, session_length + 1):
-                #update session progress
-                self.session_progress['value'] = (second / session_length) * 100
-                #print("updated session progress.") #debug
+        time_data_tupl = time_data_str.split(',')
+        session_length = int(time_data_tupl[0])
+        break_length = int(time_data_tupl[1])
+        study_length = int(time_data_tupl[2])
+        current_segment_time = 0
+        is_break = False
 
-                #If segment bar is full, reset and change to opposite segment type
-                if self.segment_progress['value'] == 100:
-                    print("resetting Segment progress...") #debug
-                    is_break = not is_break
-                    print(f'is_break: ', {is_break})
-                    # Set music
-                    if not is_break: 
-                        # set to study music
-                        player.play_yt("study_link.txt")
-                    else:
-                        player.play_yt("break_link.txt")
-                    current_segment_time = 0
+        # Start time
+        print("starting session...") #debug
+        player.play_yt('study_link.txt')
+        for second in range(0, session_length + 1):
+            #update session progress
+            self.session_progress['value'] = (second / session_length) * 100
+            #print("updated session progress.") #debug
 
-                #Update segment progress
-                if not is_break:
-                    # print("Updating study progress...") #debug
-                    self.segment_progress['value'] = (current_segment_time / study_length) * 100
-                else: 
-                    # print("Updating break progress...") #debug
-                    self.segment_progress['value'] = (current_segment_time / break_length) * 100
-                #print("Updated segment progress") #debug
+            #If segment bar is full, reset and change to opposite segment type
+            if self.segment_progress['value'] == 100:
+                print("resetting Segment progress...") #debug
+                is_break = not is_break
+                print(f'is_break: {is_break}')
+                # Set music
+                if not is_break: 
+                    # set to study music
+                    player.play_yt("study_link.txt")
+                else:
+                    player.play_yt("break_link.txt")
+                current_segment_time = 0
 
-                # Increment time 
-                self.window.update_idletasks()
-                time.sleep(1.0)
-                current_segment_time += 1
+            #Update segment progress
+            if not is_break:
+                # print("Updating study progress...") #debug
+                self.segment_progress['value'] = (current_segment_time / study_length) * 100
+            else: 
+                # print("Updating break progress...") #debug
+                self.segment_progress['value'] = (current_segment_time / break_length) * 100
+            #print("Updated segment progress") #debug
+
+            # Increment time 
+            self.window.update_idletasks()
+            time.sleep(1.0)
+            current_segment_time += 1
