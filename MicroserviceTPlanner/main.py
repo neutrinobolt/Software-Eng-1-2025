@@ -24,7 +24,6 @@ with open("sites.txt", mode="r", encoding="utf-8") as sites_file:
     sites_text = sites_file.read()
 
 site_lines = sites_text.splitlines()
-# print(site_lines[0])
 if site_lines[0] == "get":
     # Get search data
     area = site_lines[1]
@@ -45,7 +44,6 @@ if site_lines[0] == "get":
     city_url_p3 += api_key
 
     city_url_full = city_url_p1 + city_url_p2 + city_url_p3
-    # print(city_url_full) # debug
 
     city_resp = requests.get(city_url_full, headers=headers)
     city_response = city_resp.json()
@@ -53,9 +51,7 @@ if site_lines[0] == "get":
     if city_resp.status_code != 200:
         with open("sites.txt", mode="w", encoding="utf-8") as sites_file:
             sites_file.write("ERROR City Invalid")
-    # pprint(resp.json())
     place_id = city_response["features"][0]["properties"]["place_id"]
-    # pprint (city_response["features"][0]["properties"]["place_id"]) # Debug
 
     # Make poi url
     poi_url_p1 = "https://api.geoapify.com/v2/places?categories="
@@ -68,15 +64,12 @@ if site_lines[0] == "get":
     poi_url_p4 += api_key
 
     poi_url_full = poi_url_p1 + poi_url_p2 + poi_url_p3 + poi_url_p4
-    # print(poi_url_full) #debug
 
     # Get location data
     poi_resp = requests.get(poi_url_full, headers=headers)
     print(poi_resp.status_code)
     poi_response = poi_resp.json()
     pprint(poi_response) # Debug
-    # for feature in poi_response["features"]: Debug
-    #     print(feature["properties"]["name"])
 
     # Gather data to be returned
     lines = []
@@ -99,7 +92,6 @@ if site_lines[0] == "get":
             line_data += feature["properties"]["opening_hours"]
         else:
             line_data += "No hours"
-        # print(line_data) # Debug
         lines.append(line_data)
 
 
